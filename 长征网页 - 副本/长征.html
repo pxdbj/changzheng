@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>重走长征路 · 纪念长征胜利90周年</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: "PingFang SC","Microsoft YaHei",sans-serif;
+    background:#0d1117; color:#e6edf3; overflow-x:hidden;
+  }
+  /* 顶部封面 */
+  .cover {
+    min-height:100vh; display:flex; flex-direction:column;
+    justify-content:center; align-items:center; text-align:center;
+    padding:40px 24px; position:relative;
+    background:linear-gradient(180deg,#1a2332 0%,#0d1117 100%);
+  }
+  .cover h1 { font-size:2.4rem; letter-spacing:4px; margin-bottom:16px; color:#f0c060; }
+  .cover .sub { font-size:1rem; color:#9aa7b8; letter-spacing:2px; }
+  .cover .years { margin-top:28px; font-size:0.9rem; color:#c0392b; letter-spacing:1px; }
+  .scroll-hint { position:absolute; bottom:32px; font-size:0.8rem; color:#5a6a7a; animation:bounce 1.6s infinite; }
+  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+
+  /* 时间线容器 */
+  .timeline { position:relative; max-width:720px; margin:0 auto; padding:60px 20px 80px; }
+  .timeline::before {
+    content:""; position:absolute; left:50%; top:0; bottom:0;
+    width:2px; background:linear-gradient(180deg,#c0392b,#f0c060,#c0392b);
+    transform:translateX(-50%); opacity:0.5;
+  }
+
+  /* 节点卡片 */
+  .node {
+    position:relative; width:50%; padding:0 32px; margin-bottom:56px;
+    opacity:0; transform:translateY(40px); transition:all 0.8s ease;
+  }
+  .node.show { opacity:1; transform:translateY(0); }
+  .node.left { left:0; text-align:right; }
+  .node.right { left:50%; text-align:left; }
+  .node .dot {
+    position:absolute; top:18px; width:14px; height:14px; border-radius:50%;
+    background:#f0c060; border:3px solid #0d1117; box-shadow:0 0 0 2px #c0392b;
+  }
+  .node.left .dot { right:-7px; }
+  .node.right .dot { left:-7px; }
+
+  .card {
+    background:#161b22; border:1px solid #2a3441; border-radius:10px;
+    padding:18px 20px; cursor:pointer; transition:border-color 0.3s, transform 0.3s;
+  }
+  .card:hover { border-color:#f0c060; transform:translateY(-2px); }
+  .card .date { font-size:0.78rem; color:#c0392b; letter-spacing:1px; margin-bottom:6px; }
+  .card h3 { font-size:1.15rem; color:#f0c060; margin-bottom:8px; }
+  .card .brief { font-size:0.88rem; color:#9aa7b8; line-height:1.6; }
+  .card .detail {
+    max-height:0; overflow:hidden; transition:max-height 0.65s ease;
+    font-size:0.85rem; color:#c9d4e0; line-height:1.7;
+  }
+  .card.open .detail { max-height:1600px; margin-top:10px; padding-top:10px; border-top:1px dashed #2a3441; }
+  .history-photo {
+    margin-top:14px; overflow:hidden; border:1px solid #2a3441;
+    border-radius:8px; background:#0d1117;
+  }
+  .history-photo img { display:block; width:100%; height:auto; }
+
+  /* 结尾 */
+  .ending {
+    text-align:center; padding:80px 24px; background:linear-gradient(180deg,#0d1117,#1a2332);
+  }
+  .ending h2 { color:#f0c060; font-size:1.6rem; letter-spacing:3px; margin-bottom:20px; }
+  .ending p { color:#9aa7b8; font-size:0.95rem; line-height:1.9; max-width:520px; margin:0 auto 10px; }
+  .ending .sign { margin-top:32px; font-size:0.8rem; color:#5a6a7a; }
+
+  @media (max-width:600px) {
+    .timeline::before { left:20px; }
+    .node { width:100%; left:0 !important; text-align:left; padding-left:48px; padding-right:0; }
+    .node .dot { left:13px !important; right:auto !important; }
+    .cover h1 { font-size:1.7rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 封面 -->
+<section class="cover">
+  <h1>重走长征路</h1>
+  <div class="sub">纪念中国工农红军长征胜利 90 周年</div>
+  <div class="years">1934 — 1936 &nbsp;·&nbsp; 2026</div>
+  <div class="scroll-hint">向下滑动，跟随红军的脚步 ↓</div>
+</section>
+
+<!-- 时间线 -->
+<div class="timeline">
+
+  <div class="node left">
+    <div class="dot"></div>
+    <div class="card" onclick="toggle(this)">
+      <div class="date">1934年10月</div>
+      <h3>中央红军出发</h3>
+      <div class="brief">江西瑞金，8.6万红军踏上漫漫征途。</div>
+      <div class="detail">第五次反"围剿"失利后，中央红军被迫实行战略转移。出发地包括江西瑞金、于都等地，红军战士告别苏区群众，开始了震惊世界的长征。
+        <figure class="history-photo"><img src="中央红军出发.jpg" alt="中央红军出发" loading="lazy" decoding="async"></figure>
+      </div>
+    </div>
+  </div>
+
+  <div class="node right">
+    <div class="dot"></div>
+    <div class="card" onclick="toggle(this)">
+      <div class="date">1934年11月—12月</div>
+      <h3>湘江战役</h3>
+      <div class="brief">长征中最惨烈的一战，红军由8.6万锐减至3万余人。</div>
+      <div class="detail">红军在湘江两岸与国民党军血战，付出巨大代价突破第四道封锁线。此役后，红军将士对"左"倾错误路线的不满达到顶点，为遵义会议的召开埋下伏笔。
+        <figure class="history-photo"><img src="湘江战役.webp" alt="湘江战役" loading="lazy" decoding="async"></figure>
+      </div>
+    </div>
+  </div>
+
+  <div class="node left">
+    <div class="dot"></div>
+    <div class="card" onclick="toggle(this)">
+      <div class="date">1935年1月</div>
+      <h3>遵义会议</h3>
+      <div class="brief">生死攸关的转折点，确立了毛泽东在党中央的领导地位。</div>
+      <div class="detail">会议纠正了博古、李德在军事上的"左"倾错误，事实上确立了以毛泽东为核心的党中央的正确领导，是中国共产党历史上一个生死攸关的转折点。
+        <figure class="history-photo"><img src="遵义会议.jpg" alt="遵义会议" loading="lazy" decoding="async"></figure>
+      </div>
+    </div>
+  </div>
+
+  <div class="node right">
+    <div class="dot"></div>
+    <div class="card" onclick="toggle(this)">
+      <div class="date">1935年1月—3月</div>
+      <h3>四渡赤水</h3>
+      <div class="brief">毛泽东军事指挥的得意之笔，红军在川黔滇边界机动灵活。</div>
+      <div class="detail">红军在赤水河两岸四次渡河，声东击西、迂回穿插，摆脱了几十万国民党军的围追堵截，创造了以少胜多的军事奇迹。
+        <figure class="history-photo"><img src="四渡赤水.jpg" alt="四渡赤水" loading="lazy" decoding="async"></figure>
+      </div>
+    </div>
+  </div>
+
+  <div class="node left">
+    <div class="dot"></div>
+    <div class="card" onclick="toggle(this)">
+      <div class="date">1935年5月</div>
+      <h3>飞夺泸定桥</h3>
+      <div class="brief">22名勇士冒着枪林弹雨攀爬铁索，夺取泸定桥。</div>
+      <div class="detail">红军先头部队一昼夜奔袭240里，22名突击队员在铁索上匍匐前进，冲破敌军火力封锁，为红军主力打开北上通道。
+        <figure class="history-photo"><img src="飞夺泸定桥.jpg" alt="飞夺泸定桥" loading="lazy" decoding="async"></figure>
+      </div>
+    </div>
+  </div>
+
+  <div class="node right">
+    <div class="dot"></div>
+    <div class="card" onclick="toggle(this)">
+      <div class="date">1935年6月—8月</div>
+      <h3>翻雪山 · 过草地</h3>
+      <div class="brief">夹金山、松潘草地，自然极限下的生死考验。</div>
+      <div class="detail">红军翻越终年积雪的夹金山，穿越人迹罕至、沼泽密布的松潘草地。缺粮、缺氧、严寒，无数战士倒在了雪山草地上，"金色的鱼钩""七根火柴"的故事就发生在这里。
+        <figure class="history-photo"><img src="翻雪山 · 过草地.jpg" alt="翻雪山 · 过草地" loading="lazy" decoding="async"></figure>
+      </div>
+    </div>
+  </div>
+
+  <div class="node left">
+    <div class="dot"></div>
+    <div class="card" onclick="toggle(this)">
+      <div class="date">1935年10月</div>
+      <h3>中央红军到达陕北</h3>
+      <div class="brief">吴起镇会师，中央红军长征胜利结束。</div>
+      <div class="detail">中央红军历经二万五千里，纵横11个省，翻越18座大山，跨过24条大河，于1935年10月到达陕北吴起镇，与陕北红军会师。
+        <figure class="history-photo"><img src="中央红军到达陕北.jpg" alt="中央红军到达陕北" loading="lazy" decoding="async"></figure>
+      </div>
+    </div>
+  </div>
+
+  <div class="node right">
+    <div class="dot"></div>
+    <div class="card" onclick="toggle(this)">
+      <div class="date">1936年10月</div>
+      <h3>三大主力会师</h3>
+      <div class="brief">甘肃会宁，红一、二、四方面军胜利会师，长征全面胜利。</div>
+      <div class="detail">1936年10月，红一、红二、红四方面军在甘肃会宁、静宁将台堡会师，标志着红军长征的全面胜利。长征是宣言书，是宣传队，是播种机。
+        <figure class="history-photo"><img src="三大主力会师.jpg" alt="三大主力会师" loading="lazy" decoding="async"></figure>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- 结尾 -->
+<section class="ending">
+  <h2>长征精神 · 永放光芒</h2>
+  <p>把全国人民和中华民族的根本利益看得高于一切，<br>坚定革命的理想和信念，坚信正义事业必然胜利。</p>
+  <p>长征永远在路上。</p>
+  <div class="sign">—— 纪念长征胜利 90 周年 · JS126315孙金一中共党史课作业</div>
+</section>
+
+<script>
+  // 滚动渐入动画
+  const nodes = document.querySelectorAll('.node');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('show');
+    });
+  }, { threshold: 0.2 });
+  nodes.forEach(n => io.observe(n));
+
+  // 点击卡片展开详情
+  function toggle(card) {
+    card.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
